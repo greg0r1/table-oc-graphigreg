@@ -1,8 +1,7 @@
-//@ts-check
-
+import React from "react"
 import { useState } from 'react'
 import PropTypes from 'prop-types'
-
+import './styles.css'
 /**
  *
  * @param {Object} props

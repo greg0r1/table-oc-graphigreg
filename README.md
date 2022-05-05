@@ -1,6 +1,6 @@
 [![forthebadge](https://forthebadge.com/images/badges/cc-0.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/uses-css.svg)](https://forthebadge.com)[![forthebadge](https://forthebadge.com/images/badges/uses-git.svg)](https://forthebadge.com)
 
-# table-oc-graphigreg
+# table-rc-oc-2022
 
 A simple table for your React app.
 
@@ -62,9 +62,33 @@ Here's an example of basic usage:
 import React, { useState } from 'react'
 import Table from 'table-rc-oc-2022'
 
+
 function MyApp() {
-  const dataList = []
-  const labels = []
+    const labels = ['First Name','Last Name','Start Date','Department','Date of Birth','Street','City','State','Zip Code']
+    const employees = [
+        {
+            firstName: 'John',
+            lastName: 'Doe',
+            startDate: '01/01/2022',
+            department: 'Aude',
+            dateOfBirth: '01/01/1980',
+            street: '1 rue Larue',
+            city: 'Nice',
+            state: 'France',
+            zipCode: '06000',
+        },
+        {
+            firstName: 'Jane',
+            lastName: 'Doe',
+            startDate: '01/01/2022',
+            department: 'Loire',
+            dateOfBirth: '01/01/1981',
+            street: '1 rue Marue',
+            city: 'Paris',
+            state: 'France',
+            zipCode: '75000',
+        }
+    ]
 
   return (
     <div>

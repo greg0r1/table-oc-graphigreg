@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Table } from './lib/index'
+import { Table } from './lib/index';
+
 const data = [{
     firstName: 'John',
     lastName: 'Doe',

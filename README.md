@@ -11,7 +11,7 @@ Your project needs to use React 18.0.0 or later. If you use an older version of 
 | React version | Newest compatible table-oc-graphigreg version |
 | ------------- | ------------------------------------------ |
 | ≥18.0.0       | latest                                     |
-| ≥18.0.0       | 0.1.3                                      |
+| ≥18.0.0       | 0.1.5                                      |
 
 #
 ### Installation

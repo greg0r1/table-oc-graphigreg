@@ -24,35 +24,10 @@ Here's an example of basic usage:
 
 ```js
 import React from 'react'
-import { Table } from 'table-oc-graphigreg';
+import { Table } from 'table-oc-graphigreg'
+import PropTypes from 'prop-types'
 
 function App() {
-    const labels = ['First Name','Last Name','Start Date','Department','Date of Birth','Street','City','State','Zip Code']
-    const dataList = [
-        {
-            firstName: 'John',
-            lastName: 'Doe',
-            startDate: '01/01/2022',
-            department: 'Aude',
-            dateOfBirth: '01/01/1980',
-            street: '1 rue Larue',
-            city: 'Nice',
-            state: 'France',
-            zipCode: '06000',
-        },
-        {
-            firstName: 'Jane',
-            lastName: 'Doe',
-            startDate: '01/01/2022',
-            department: 'Loire',
-            dateOfBirth: '01/01/1981',
-            street: '1 rue Marue',
-            city: 'Paris',
-            state: 'France',
-            zipCode: '75000',
-        }
-    ]
-
   return (
     <div>
       <Table data={dataList} labels={labels} numberOfItemsByPage={10} />
@@ -73,11 +48,11 @@ Displays an input field complete with custom inputs, native input, and a calenda
 
 #### Props
 
-| Prop name  | Description                           | Example values | Default value                                   |
-| ---------- | ------------------------------------- | -------------- | ----------------------------------------------- |
-| data       | Display rows data.                    | n/a            | Array of strings: `["class1", "class2 class3"]` |
-| labels     | Display rows data.                    | n/a            | Array of strings: `["class1", "class2 class3"]` |
-| pagination | Displays the number of rows per page. | 10             | Number: 10                                      |
+| Prop name  | Description                           | Example values | Default value                                                                                                                                                                                                  |
+| ---------- | ------------------------------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| data       | Display rows data.                    | n/a            | Array of objects: `[{firstName: 'John',lastName: 'Doe',startDate: '01/01/2022', department: 'Aude',dateOfBirth: '01/01/1980',street: '1 rue Larue',city: 'Nice',state: 'France',zipCode: '06000',}]`           |
+| labels     | Display rows data.                    | n/a            | Array of strings: `['First Name','Last Name','Start Date','Department','Date of Birth','Street','City','State','Zip Code',]`                                                                                   |
+| pagination | Displays the number of rows per page. | 10             | Number: 10                                                                                                                                                                                                     |
 
 ## Author
 

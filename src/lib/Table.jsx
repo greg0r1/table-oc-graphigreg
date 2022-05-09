@@ -2,7 +2,7 @@ import React from "react"
 import { useState } from 'react'
 import PropTypes from 'prop-types'
 import Rows from './Rows'
-import './styles.scss'
+import './styles.css'
 /**
  *
  * @param {Object} props

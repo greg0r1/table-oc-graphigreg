@@ -1,8 +1,8 @@
 import React from "react"
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import PropTypes from 'prop-types'
 import Rows from './Rows'
-import './styles.css'
+import './styles.scss'
 /**
  *
  * @param {Object} props
@@ -19,7 +19,6 @@ function Table({ data, labels, pagination }) {
   const [tableData, setTableData] = useState(data)
   const [sortBy, setSortBy] = useState(0)
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   function setPagination(
     /** @type {any[]} */ array,
     /** @type {number} */ pageSize,
@@ -28,7 +27,6 @@ function Table({ data, labels, pagination }) {
     const newArray = array
       .slice((pageNumber - 1) * pageSize, pageNumber * pageSize)
       .sort(function (a, b) {
-        // console.log(Object.values(a)[sortBy])
         return Object.values(a)[sortBy].localeCompare(Object.values(b)[sortBy])
       })
     return newArray
@@ -37,14 +35,11 @@ function Table({ data, labels, pagination }) {
   function handleChangeSelect(event) {
     const value = event.target.value
     setSelectAmounOfEntriesPerPage(Number(value))
-    setPageNumber(1)
-  }
-
-  useEffect(() => {
     setAmounOfEntriesPerPage(
       setPagination(data, selectAmounOfEntriesPerPage, pageNumber).length
     )
-  }, [data, pageNumber, selectAmounOfEntriesPerPage, setPagination])
+    setPageNumber(1)
+  }
 
   function handleChangeSearch(event) {
     const value = event.target.value

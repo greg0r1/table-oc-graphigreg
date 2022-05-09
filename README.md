@@ -11,7 +11,7 @@ Your project needs to use React 18.0.0 or later. If you use an older version of 
 | React version | Newest compatible table-oc-graphigreg version |
 | ------------- | --------------------------------------------- |
 | ≥18.0.0       | latest                                        |
-| ≥18.0.0       | 0.2.1                                         |
+| ≥18.0.0       | 0.2.3                                         |
 
 #
 ### Installation
@@ -30,7 +30,7 @@ import PropTypes from 'prop-types'
 function App() {
   return (
     <div>
-      <Table data={dataList} labels={labels} numberOfItemsByPage={10} />
+      <Table data={data} labels={labels} pagination={10} />
     </div>
   )
 }

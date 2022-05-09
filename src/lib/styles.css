@@ -1,3 +1,9 @@
+#table {
+    font-family: Arial,
+        Helvetica,
+        sans-serif;
+}
+
 #table>* {
     margin: 10px 0;
 }
@@ -7,8 +13,6 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-
-
 }
 
 #table .selectAmountEntries select {
@@ -20,6 +24,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    cursor: pointer;
 }
 
 #table .table-bottom {
@@ -29,12 +34,10 @@
 }
 
 #table table {
-
-    border-spacing: unset;
     border-collapse: collapse;
     border-spacing: 0;
     width: 100%;
-    border: 1px solid #ddd;
+    border: none;
     background: #FFF;
 }
 
@@ -64,7 +67,6 @@
     color: #fff;
 }
 
-
 #table .pagination {
     display: flex;
     justify-content: center;
@@ -81,6 +83,27 @@
     align-items: center;
     justify-content: center;
     cursor: auto;
+}
+
+#table button {
+    padding: 10px 40px;
+    margin: 15px;
+    width: 12em;
+    min-width: min-content;
+    border: solid 1px #d9d9d9;
+    border-radius: 5px;
+    color: #404040;
+    cursor: pointer;
+}
+
+#table label input {
+    border: 1px solid #f2f2f2;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    width: 250px;
+    margin: auto;
+    padding: 10px 10px;
+    box-sizing: border-box;
 }
 
 

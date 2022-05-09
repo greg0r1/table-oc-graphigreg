@@ -9,9 +9,9 @@ A simple table for your React app.
 Your project needs to use React 18.0.0 or later. If you use an older version of React, please refer to the table below to find a suitable table-oc-graphigreg version.
 
 | React version | Newest compatible table-oc-graphigreg version |
-| ------------- | ------------------------------------------ |
-| ≥18.0.0       | latest                                     |
-| ≥18.0.0       | 0.1.5                                      |
+| ------------- | --------------------------------------------- |
+| ≥18.0.0       | latest                                        |
+| ≥18.0.0       | 0.2.1                                         |
 
 #
 ### Installation

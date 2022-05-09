@@ -1,6 +1,7 @@
 import React from "react"
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
+import Rows from './Rows'
 import './styles.css'
 /**
  *
@@ -12,56 +13,118 @@ import './styles.css'
  */
 function Table({ data, labels, pagination }) {
   const [pageNumber, setPageNumber] = useState(1)
+  const [selectAmounOfEntriesPerPage, setSelectAmounOfEntriesPerPage] =
+    useState(pagination)
+  const [amounOfEntriesPerPage, setAmounOfEntriesPerPage] = useState(0)
+  const [tableData, setTableData] = useState(data)
+  const [sortBy, setSortBy] = useState(0)
 
-  function page(
-    /** @type {string | any[]} */ array,
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  function setPagination(
+    /** @type {any[]} */ array,
     /** @type {number} */ pageSize,
     /** @type {number} */ pageNumber
   ) {
-    return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize)
+    const newArray = array
+      .slice((pageNumber - 1) * pageSize, pageNumber * pageSize)
+      .sort(function (a, b) {
+        // console.log(Object.values(a)[sortBy])
+        return Object.values(a)[sortBy].localeCompare(Object.values(b)[sortBy])
+      })
+    return newArray
+  }
+
+  function handleChangeSelect(event) {
+    const value = event.target.value
+    setSelectAmounOfEntriesPerPage(Number(value))
+    setPageNumber(1)
+  }
+
+  useEffect(() => {
+    setAmounOfEntriesPerPage(
+      setPagination(data, selectAmounOfEntriesPerPage, pageNumber).length
+    )
+  }, [data, pageNumber, selectAmounOfEntriesPerPage, setPagination])
+
+  function handleChangeSearch(event) {
+    const value = event.target.value
+    const result = data.filter((obj) => {
+      const isRequest = Object.values(obj).filter((item) =>
+        String(item.toLowerCase()).includes(String(value.toLowerCase()))
+      )
+      return isRequest.length > 0
+    })
+    value.length === 0 ? setTableData(data) : setTableData(result)
   }
 
   return (
     <div id="table">
+      <div className="table-top">
+        <div className="selectAmountEntries">
+          <span>Show </span>
+          <select onChange={handleChangeSelect}>
+            <option defaultValue={10}>10</option>
+            <option value={50}>50</option>
+            <option value={data.length}>All</option>
+          </select>
+          <span> entries</span>
+        </div>
+        <div className="inputSearchWrapper">
+          <label htmlFor="searchEntry">
+            <span>Search </span>
+            <input
+              type="search"
+              name="searchEntry"
+              id="searchEntry"
+              onChange={handleChangeSearch}
+            />
+          </label>
+        </div>
+      </div>
       <table>
         <thead>
           <tr>
             {labels.map((item, index) => (
               <th key={index} scope="col" colSpan={1}>
                 {item}
+                <span className="arrow" onClick={() => setSortBy(index)}></span>
               </th>
             ))}
           </tr>
         </thead>
         <tbody>
-                {data?.map(
-        (
-          /** @type {{ [s: string]: any; } | ArrayLike<any>} */ object,
-          /** @type {import("react").Key} */ index
-        ) => (
-          <tr key={index} id={`row-${index}`}>
-            {Object.entries(object).map((el, index) => (
-              <td key={index} data-label={el[0]}>
-                {el[1]}
-              </td>
-            ))}
-          </tr>
-        )
-      )}
+          <Rows
+            data={setPagination(
+              tableData,
+              selectAmounOfEntriesPerPage,
+              pageNumber
+            )}
+          />
         </tbody>
       </table>
-      <div className={'pagination'}>
-        <button onClick={() => pageNumber > 1 && setPageNumber(pageNumber - 1)}>
-          Previous
-        </button>
-        <button
-          onClick={() =>
-            page(data, pagination, pageNumber).length === pagination &&
-            setPageNumber(pageNumber + 1)
-          }
-        >
-          Next
-        </button>
+      <div className="table-bottom">
+        <div className="paginationDisplay">
+          <span>
+            Showing {amounOfEntriesPerPage} of {data.length} entries
+          </span>
+        </div>
+        <div className={'pagination'}>
+          <button
+            onClick={() => pageNumber > 1 && setPageNumber(pageNumber - 1)}
+          >
+            Previous
+          </button>
+          <span>{pageNumber}</span>
+          <button
+            onClick={() => {
+              setPagination(data, selectAmounOfEntriesPerPage, pageNumber)
+                .length === selectAmounOfEntriesPerPage &&
+                setPageNumber(pageNumber + 1)
+            }}
+          >
+            Next
+          </button>
+        </div>
       </div>
     </div>
   )

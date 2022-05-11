@@ -1,5 +1,4 @@
-import React from "react"
-import { useState } from 'react'
+import React, {useEffect, useState} from "react"
 import PropTypes from 'prop-types'
 import Rows from './Rows'
 import './styles.css'
@@ -19,34 +18,11 @@ function Table({ data, labels, pagination }) {
   const [tableData, setTableData] = useState(data)
   const [sortBy, setSortBy] = useState(0)
   const [sortByAsc, setSortByAsc] = useState(true)
-
-  function setPagination(
-    /** @type {any[]} */ array,
-    /** @type {number} */ pageSize,
-    /** @type {number} */ pageNumber
-  ) {
-    const newArray = array
-      .slice((pageNumber - 1) * pageSize, pageNumber * pageSize)
-      .sort(function (a, b) {
-        if (sortByAsc) {
-          return Object.values(a)[sortBy].localeCompare(
-            Object.values(b)[sortBy]
-          )
-        } else {
-          return Object.values(b)[sortBy].localeCompare(
-            Object.values(a)[sortBy]
-          )
-        }
-      })
-    return newArray
-  }
+  const [page, setPage] = useState([])
 
   function handleChangeSelect(event) {
     const value = event.target.value
     setSelectAmounOfEntriesPerPage(Number(value))
-    setAmounOfEntriesPerPage(
-      setPagination(data, selectAmounOfEntriesPerPage, pageNumber).length
-    )
     setPageNumber(1)
   }
 
@@ -65,6 +41,39 @@ function Table({ data, labels, pagination }) {
     setSortBy(index)
     sortByAsc ? setSortByAsc(false) : setSortByAsc(true)
   }
+
+  useEffect(() => {
+    function getPagination(
+      /** @type {any[]} */ array,
+      /** @type {number} */ pageSize,
+      /** @type {number} */ pageNumber
+    ) {
+      const newArray = array
+        .slice((pageNumber - 1) * pageSize, pageNumber * pageSize)
+        .sort(function (a, b) {
+          if (sortByAsc) {
+            return Object.values(a)[sortBy].localeCompare(
+              Object.values(b)[sortBy]
+            )
+          } else {
+            return Object.values(b)[sortBy].localeCompare(
+              Object.values(a)[sortBy]
+            )
+          }
+        })
+      return newArray
+    }
+    setPage(getPagination(tableData, selectAmounOfEntriesPerPage, pageNumber))
+    setAmounOfEntriesPerPage(page.length)
+    return
+  }, [
+    page.length,
+    pageNumber,
+    selectAmounOfEntriesPerPage,
+    sortBy,
+    sortByAsc,
+    tableData,
+  ])
 
   return (
     <div id="table">
@@ -105,13 +114,7 @@ function Table({ data, labels, pagination }) {
           </tr>
         </thead>
         <tbody>
-          <Rows
-            data={setPagination(
-              tableData,
-              selectAmounOfEntriesPerPage,
-              pageNumber
-            )}
-          />
+          <Rows data={page} />
         </tbody>
       </table>
       <div className="table-bottom">
@@ -129,8 +132,7 @@ function Table({ data, labels, pagination }) {
           <span>{pageNumber}</span>
           <button
             onClick={() => {
-              setPagination(data, selectAmounOfEntriesPerPage, pageNumber)
-                .length === selectAmounOfEntriesPerPage &&
+              page.length === selectAmounOfEntriesPerPage &&
                 setPageNumber(pageNumber + 1)
             }}
           >
@@ -141,7 +143,6 @@ function Table({ data, labels, pagination }) {
     </div>
   )
 }
-
 export default Table
 
 Table.propType = {

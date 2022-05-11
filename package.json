@@ -1,6 +1,6 @@
 {
   "name": "table-oc-graphigreg",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "A simple table for your React app",
   "private": false,
   "main": "dist/index.js",

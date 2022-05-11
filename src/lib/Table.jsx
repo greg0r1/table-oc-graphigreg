@@ -16,7 +16,7 @@ function Table({ data, labels, pagination }) {
     useState(pagination)
   const [amounOfEntriesPerPage, setAmounOfEntriesPerPage] = useState(0)
   const [tableData, setTableData] = useState(data)
-  const [sortBy, setSortBy] = useState(0)
+  const [sortBy, setSortBy] = useState(null)
   const [sortByAsc, setSortByAsc] = useState(true)
   const [page, setPage] = useState([])
 
@@ -48,9 +48,15 @@ function Table({ data, labels, pagination }) {
       /** @type {number} */ pageSize,
       /** @type {number} */ pageNumber
     ) {
-      const newArray = array
-        .slice((pageNumber - 1) * pageSize, pageNumber * pageSize)
-        .sort(function (a, b) {
+      const newArray = array.slice(
+        (pageNumber - 1) * pageSize,
+        pageNumber * pageSize
+      )
+
+      if (sortBy === null) {
+        return newArray
+      } else {
+        return newArray.sort(function (a, b) {
           if (sortByAsc) {
             return Object.values(a)[sortBy].localeCompare(
               Object.values(b)[sortBy]
@@ -61,7 +67,7 @@ function Table({ data, labels, pagination }) {
             )
           }
         })
-      return newArray
+      }
     }
     setPage(getPagination(tableData, selectAmounOfEntriesPerPage, pageNumber))
     setAmounOfEntriesPerPage(page.length)
@@ -143,6 +149,7 @@ function Table({ data, labels, pagination }) {
     </div>
   )
 }
+
 export default Table
 
 Table.propType = {
